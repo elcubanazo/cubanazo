@@ -1,0 +1,690 @@
+/* ========== HEADER Y NAVEGACIÓN ========== */
+
+/* Header mejorado */
+.header {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-bg-2) 100%);
+    color: var(--azul-oscuro);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease-in-out, background 0.3s ease;
+    border-bottom: 3px solid var(--color-principal);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    position: relative;
+    order: 1;
+    flex-wrap: wrap;
+}
+
+/* Menú hamburguesa mejorado */
+.menu-toggle {
+    background: none;
+    border: none;
+    color: var(--azul-oscuro);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: none;
+    z-index: 1001;
+    transition: var(--transicion);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-toggle:hover {
+    background-color: var(--azul-claro);
+    color: var(--azul-oscuro);
+}
+
+/* Logo de marca */
+.logo {
+    cursor: pointer;
+    transition: var(--transicion);
+    text-align: center;
+    flex-grow: 1;
+    margin: 0 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.logo-image {
+    display: block;
+    width: auto;
+    height: 3.25rem;
+    max-width: 190px;
+    object-fit: contain;
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+/* Carrito mejorado */
+.cart-btn {
+    background-color: transparent;
+    color: var(--azul-oscuro);
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    position: relative;
+    padding: 0.5rem;
+    transition: var(--transicion);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.cart-btn:hover {
+    background-color: var(--azul-claro);
+    color: var(--azul-oscuro);
+}
+
+#cart-count {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: var(--color-principal);
+    color: var(--blanco);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border: 2px solid var(--blanco);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Barra de búsqueda mejorada */
+.search-container {
+    padding: 0 1.5rem 1.1rem;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    order: 2;
+    width: 100%;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+#search-input {
+    flex-grow: 1;
+    max-width: 720px;
+    padding: 0.72rem 1.2rem;
+    border-radius: 8px 0 0 8px;
+    border: 2px solid #CBD5E1;
+    border-right: none;
+    font-size: 1rem;
+    outline: none;
+    background-color: #ffffff;
+    color: #0f1111;
+    transition: var(--transicion);
+    box-shadow: 0 2px 6px rgba(20, 49, 92, 0.12);
+}
+
+#search-input::placeholder {
+    color: #6b6f70;
+}
+
+#search-input:focus {
+    border-color: var(--azul-destacado);
+    box-shadow: 0 0 0 3px rgba(44, 94, 168, 0.28);
+}
+
+/* Dropdown de sugerencias (posicionado desde JS sobre el body) */
+.search-suggestions {
+    position: absolute; /* posicionado por JS */
+    top: 0;
+    left: 0;
+    min-width: 220px;
+    max-width: 650px;
+    max-height: 360px;
+    overflow: auto;
+    background: var(--blanco);
+    border: 1px solid var(--gris-claro);
+    border-radius: 3px;
+    box-shadow: 0 4px 14px rgba(15,17,17,0.18);
+    z-index: 12000;
+    padding: 6px 0;
+    display: none;
+    list-style: none;
+    will-change: transform, top, left;
+}
+
+.search-suggestion-item {
+    display: flex;
+    gap: 0.75rem;
+    padding: 10px 14px;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    border-radius: 0;
+    border-bottom: 1px solid #eaeded;
+}
+
+.search-suggestion-item:hover,
+.search-suggestion-item.active {
+    background: #f3f3f3;
+}
+
+.search-results-header {
+    display: none;
+    align-items: baseline;
+    gap: 0.45rem;
+    width: 100%;
+    padding: 0.9rem 0 0.35rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid #d5d9d9;
+    color: var(--negro);
+    font-size: 1.05rem;
+}
+
+.search-results-label {
+    color: var(--gris-medio);
+    font-size: 0.9rem;
+}
+
+.search-results-header strong {
+    color: var(--color-principal);
+    font-weight: 700;
+}
+
+.search-suggestion-item .suggestion-img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.search-suggestion-item .suggestion-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.search-suggestion-item .suggestion-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--negro);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-suggestion-item .suggestion-meta {
+    font-size: 0.85rem;
+    color: var(--gris-medio);
+    display:flex;
+    gap:6px;
+    align-items:center;
+}
+
+.suggestion-type {
+    background: rgba(0,0,0,0.06);
+    color: var(--gris-medio);
+    padding: 2px 6px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+.search-btn {
+    background: linear-gradient(180deg, var(--color-principal) 0%, var(--rojo-oscuro) 100%);
+    color: var(--blanco);
+    border: 2px solid var(--rojo-oscuro);
+    border-radius: 0 8px 8px 0;
+    padding: 0 1.5rem;
+    cursor: pointer;
+    transition: background 0.15s ease, filter 0.15s ease;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn:hover {
+    filter: brightness(1.1);
+    background: linear-gradient(180deg, var(--rojo-mas-vendido) 0%, var(--rojo-oscuro) 100%);
+    border-color: var(--rojo-oscuro);
+}
+
+/* Categorías mejoradas */
+.categories-nav {
+    display: block;
+    background: var(--azul-oscuro);
+    border-top: 1px solid var(--azul-destacado);
+    border-bottom: 1px solid var(--azul-destacado);
+    order: 3;
+    width: 100%;
+}
+
+.categories-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    list-style: none;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0.55rem 1.5rem;
+    width: 100%;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.categories-list::-webkit-scrollbar {
+    display: none;
+}
+
+.categories-list li {
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    padding: 0.3rem 0.1rem;
+    transition: var(--transicion);
+    font-weight: 500;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    position: relative;
+    background: transparent;
+    border: none;
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.categories-list li::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-principal-pastel);
+    transition: var(--transicion);
+}
+
+.categories-list li:hover {
+    color: var(--blanco);
+    background-color: var(--azul-destacado);
+}
+
+.categories-list li:hover::after {
+    width: 100%;
+}
+
+/* Estilos adicionales para el header oculto */
+.header.header-hidden {
+    transform: translateY(-100%);
+}
+
+/* ========== PANEL DE UBICACIÓN ========== */
+
+.location-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    padding: 0.8rem 1.5rem;
+    border-top: 1px solid var(--gris-claro);
+    border-bottom: 1px solid var(--gris-claro);
+    order: 3;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.location-panel:hover,
+.location-panel:focus-visible {
+    background: var(--azul-claro);
+    outline: none;
+}
+
+.location-panel:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--azul-destacado);
+}
+
+.location-icon {
+    font-size: 1.3rem;
+    color: var(--color-principal);
+    flex-shrink: 0;
+    animation: pulse-location 2.5s ease-in-out infinite;
+}
+
+.location-info {
+    display: flex;
+    gap: 0.25rem;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.location-label {
+    font-size: 0.75rem;
+    color: var(--gris-oscuro);
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.location-city {
+    font-size: 1rem;
+    color: var(--azul-oscuro);
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+.location-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--azul-destacado);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.location-change i {
+    font-size: 0.55rem;
+}
+
+@keyframes pulse-location {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+/* ========== SIDEBAR Y FILTROS ========== */
+
+/* Overlay del sidebar */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(44, 44, 44, 0.5);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-out, visibility 0.3s;
+    backdrop-filter: blur(3px);
+    pointer-events: none;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Sidebar mejorado */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -350px;
+    width: 320px;
+    height: 100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F3F4F6 100%);
+    z-index: 1003;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    overflow-y: auto;
+    will-change: transform;
+    border-right: 1px solid var(--gris-claro);
+}
+
+.sidebar.active {
+    transform: translateX(350px);
+}
+
+.sidebar-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gris-claro);
+}
+
+.sidebar-header h3 {
+    font-size: 1.7rem;
+    color: #2c3e50;
+    font-weight: 600;
+    margin: 0;
+    margin-left: 30px;
+}
+
+.sidebar-section {
+    margin-bottom: 2rem;
+}
+
+.sidebar-title {
+    font-size: 1.1rem;
+    color: #34495e;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 10px;
+}
+
+.sidebar-title i {
+    color: var(--color-principal);
+    font-size: 0.9rem;
+}
+
+/* Categorías mejoradas */
+.sidebar-categories {
+    list-style: none;
+}
+
+.sidebar-categories li {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: #34495e;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: 10px;
+}
+
+.sidebar-categories li i {
+    color: var(--rojo-mas-vendido);
+    font-size: 0.8rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-categories li:hover i {
+    color: var(--color-principal);
+    scale: 1.15;
+}
+
+.sidebar-categories li:hover {
+    background: rgba(179, 18, 42, 0.08);
+    color: var(--color-principal);
+    padding-left: 1.25rem;
+}
+
+.sidebar-categories li.active {
+    background: rgba(179, 18, 42, 0.12);
+    color: var(--color-principal);
+    font-weight: 600;
+}
+
+/* Close button mejorado */
+.close-sidebar {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #95a5a6;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-sidebar:hover {
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* Filtro de precios mejorado */
+.price-filter {
+    background: #f9f9f9;
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+.price-inputs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.price-input-group {
+    flex: 1;
+}
+
+.price-input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+.price-input-group input {
+    width: 100%;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.price-input-group input:focus {
+    border-color: var(--color-principal);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(179, 18, 42, 0.1);
+}
+
+.price-slider {
+    position: relative;
+    height: 4px;
+    background: var(--rojo-mas-vendido);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.price-slider-track {
+    position: absolute;
+    height: 100%;
+    left: 25%;
+    right: 25%;
+    background: var(--color-principal);
+    border-radius: 2px;
+}
+
+.price-range {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.price-range::-webkit-slider-thumb {
+    pointer-events: all;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-principal);
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.price-range::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.apply-filter-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--color-principal);
+    color: var(--blanco);
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid var(--rojo-oscuro);
+}
+
+.apply-filter-btn:hover {
+    background: var(--rojo-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(179, 18, 42, 0.3);
+}

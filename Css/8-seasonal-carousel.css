@@ -1,0 +1,421 @@
+/* ============================================================
+  CARRUSEL HERO - El Cubanazo
+   Tarjetas 298x478 en scroll horizontal con snap (scroll-snap).
+   Textos/colores editables en Json/seasonal-carousel.json
+  Basado en el diseño de tarjetas estacionales
+   ============================================================ */
+
+:root {
+  --card-w: 298px;
+  --card-gap: 8px;
+  --card-radius: 8px;
+  --card-pad: 12px;
+  --edge: 0px;
+}
+
+/* ---------- Contenedor ---------- */
+.seasonal-carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  margin: 8px auto 0;
+  height: auto;                 /* la altura la dan las tarjetas (aspect-ratio) */
+  overflow: visible;
+}
+
+/* Quita el degradado blanco inferior del carrusel antiguo */
+.seasonal-carousel-container::after {
+  display: none;
+}
+
+/* ---------- Track: fila horizontal con scroll y snap ---------- */
+.seasonal-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;                 /* override: sin altura fija */
+  display: flex;
+  gap: var(--card-gap);
+  padding-inline: var(--edge);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--edge);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;        /* sin barra de scroll visible */
+}
+
+.seasonal-carousel-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.seasonal-carousel-wrapper:focus-visible {
+  outline: 3px solid #007185;
+  outline-offset: -3px;
+}
+
+/* ---------- Tarjeta (cada slide es UNA tarjeta de 298x478) ---------- */
+.carousel-slide.seasonal-slide {
+  position: relative;
+  flex: 0 0 var(--card-w);
+  aspect-ratio: 298 / 478;
+  container-type: inline-size;  /* habilita unidades cqw para escalar */
+  scroll-snap-align: start;
+  opacity: 1;                   /* override: sin fade entre slides */
+  transition: none;
+  top: auto;
+  left: auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
+}
+
+.carousel-slide.seasonal-slide.active {
+  opacity: 1;
+  z-index: auto;
+}
+
+/* ---------- Tarjeta visual ---------- */
+.seasonal-card {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--card-radius);
+  box-shadow: 0 6px 14px rgba(15, 17, 17, 0.10);
+  display: flex;
+  flex-direction: column;
+  padding: var(--card-pad);
+  overflow: hidden;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  text-align: left;
+  color: inherit;
+}
+
+/* ---------- Header de la tarjeta ---------- */
+.sc-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.sc-kicker {
+  margin: 0 0 2px;
+  font-size: 18px;       /* fallback */
+  font-size: 6.04cqw;
+  font-weight: 400;
+  line-height: 1.15;
+  opacity: 0.9;
+  color: inherit;
+}
+
+.sc-title {
+  font-size: 33px;       /* fallback */
+  font-size: 11.07cqw;
+  font-weight: 800;
+  color: inherit;
+  text-shadow: none;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.sc-title-icon {
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+.sc-subtitle {
+  font-size: 15px;       /* fallback */
+  font-size: 5.03cqw;
+  color: inherit;
+  opacity: 0.85;
+  margin: 2px 0 0;
+  padding: 0;
+  text-shadow: none;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* ---------- Botón "Ver más" ---------- */
+.sc-link {
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sc-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
+/* ---------- Layout "imagen" (tarjeta con foto grande) ---------- */
+.sc-hero {
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.sc-hero .sc-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: multiply;
+}
+
+/* ---------- Grid de productos (2x2) ---------- */
+.sc-grid {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.sc-item {
+  background: var(--blanco);
+  border-radius: 4px;
+  padding: 6px 6px 8px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15, 17, 17, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sc-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(15, 17, 17, 0.13);
+}
+
+.sc-item-image {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.sc-item-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.25s ease;
+}
+
+.sc-item:hover .sc-item-image img {
+  transform: scale(1.06);
+}
+
+.sc-item-badges {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sc-item-badge {
+  font-size: 8px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #fff;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.sc-item-badge-sale {
+  background: var(--rojo-oferta, #CC0C39);
+}
+
+.sc-item-badge-new {
+  background: var(--azul-destacado, #1D4E9B);
+}
+
+.sc-item-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.sc-item-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--negro);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 1.6em;
+}
+
+.sc-item-price {
+  margin-top: auto;
+  padding-top: 2px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.sc-item-price-original {
+  font-size: 0.6rem;
+  color: #999;
+  text-decoration: line-through;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.sc-item-price-current {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--precio, #B12704);
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.sc-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  opacity: 0.8;
+  padding: 0.5rem;
+}
+
+/* ============================================================
+  FLECHAS DE NAVEGACIÓN (panel blanco 47x97)
+   ============================================================ */
+.seasonal-carousel-container .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 47px;
+  height: 97px;
+  background: #fff;
+  color: #333;
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  font-size: 32px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.seasonal-carousel-container .carousel-btn:hover {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.seasonal-carousel-container .carousel-btn-prev {
+  left: 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.seasonal-carousel-container .carousel-btn-next {
+  right: 0;
+  border-radius: 4px 0 0 4px;
+}
+
+.seasonal-carousel-container .carousel-btn[hidden] {
+  display: none;
+}
+
+/* Sin puntos indicadores */
+.seasonal-carousel-container .carousel-indicators {
+  display: none;
+}
+
+/* ============================================================
+   RESPONSIVE (breakpoints del diseño de referencia)
+   ============================================================ */
+
+/* Laptop pequeña / escritorio angosto */
+@media (max-width: 1279px) {
+  :root { --edge: 12px; }
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  :root { --card-w: 264px; --edge: 16px; }
+  .seasonal-carousel-container .carousel-btn { width: 40px; height: 80px; font-size: 26px; }
+}
+
+/* Móvil grande: la siguiente tarjeta asoma y no hay flechas (solo swipe) */
+@media (max-width: 767px) {
+  :root { --card-w: min(76vw, 300px); --edge: 12px; }
+  .seasonal-carousel-container { margin-top: 4px; }
+  .seasonal-carousel-container .carousel-btn { display: none; }
+  .seasonal-carousel-wrapper { scroll-snap-type: x proximity; }
+  .seasonal-carousel-container { min-height: 0; }
+}
+
+/* Móvil chico */
+@media (max-width: 479px) {
+  :root { --card-w: 82vw; --edge: 10px; --card-radius: 6px; }
+}
+
+/* Dispositivos táctiles: sin flechas aunque la pantalla sea ancha */
+@media (hover: none) and (pointer: coarse) {
+  .seasonal-carousel-container .carousel-btn { display: none; }
+}
+
+/* Notch / barras del sistema en móviles */
+@supports (padding: max(0px)) {
+  .seasonal-carousel-wrapper {
+    padding-left: max(var(--edge), env(safe-area-inset-left));
+    padding-right: max(var(--edge), env(safe-area-inset-right));
+  }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .seasonal-carousel-wrapper { scroll-behavior: auto; }
+}

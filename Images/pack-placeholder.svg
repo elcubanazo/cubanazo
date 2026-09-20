@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Pack placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F3F1FF"/>
+      <stop offset="100%" stop-color="#E4E0FA"/>
+    </linearGradient>
+    <linearGradient id="pack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B8AEF0"/>
+      <stop offset="100%" stop-color="#8175D1"/>
+    </linearGradient>
+    <linearGradient id="box" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D8D3FA"/>
+      <stop offset="100%" stop-color="#AAA0E8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Soft background -->
+  <rect width="600" height="600" rx="54" fill="url(#bg)"/>
+
+  <!-- Organic decorative shape -->
+  <path d="M105 385C78 285 126 177 229 142C326 109 431 143 475 227C517 308 478 414 382 452C274 495 134 482 105 385Z"
+        fill="#D7D2F5"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="300" cy="463" rx="155" ry="27" fill="#AAA2DD" opacity=".55"/>
+
+  <!-- Large rear pack / box -->
+  <path d="M205 190L357 190L390 222V405C390 423 376 437 358 437H214C196 437 182 423 182 405V222L205 190Z"
+        fill="url(#pack)"/>
+
+  <!-- Top flap -->
+  <path d="M205 190H357L390 222H182L205 190Z" fill="#C9C3F5"/>
+
+  <!-- Packing tape -->
+  <path d="M274 190H316V222H274Z" fill="#7063C1" opacity=".9"/>
+  <path d="M274 222H316V402H274Z" fill="#7063C1" opacity=".72"/>
+
+  <!-- Rear pack label -->
+  <rect x="218" y="270" width="136" height="91" rx="16" fill="#F7F6FF" opacity=".94"/>
+  <path d="M286 292C276 306 276 318 286 328C296 318 296 306 286 292Z"
+        fill="#8175D1"/>
+  <path d="M286 309C270 302 260 308 258 321C270 322 280 318 286 309Z"
+        fill="#8175D1"/>
+  <path d="M286 309C302 302 312 308 314 321C302 322 292 318 286 309Z"
+        fill="#8175D1"/>
+  <rect x="251" y="335" width="70" height="7" rx="3.5" fill="#AAA1E8"/>
+
+  <!-- Small front box -->
+  <path d="M145 315L238 315L259 335V439C259 452 249 462 236 462H151C138 462 128 452 128 439V335L145 315Z"
+        fill="url(#box)"/>
+  <path d="M145 315H238L259 335H128L145 315Z" fill="#ECEAFF"/>
+  <path d="M181 315H207V335H181Z" fill="#786BC9"/>
+
+  <!-- Small box label -->
+  <rect x="148" y="366" width="91" height="65" rx="13" fill="#F8F7FF" opacity=".96"/>
+  <circle cx="193.5" cy="389" r="12" fill="#9187D9"/>
+  <path d="M174 414H213" stroke="#A9A1E5" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Front resealable pouch -->
+  <path d="M349 280H454L469 305V435C469 451 457 463 441 463H362C346 463 334 451 334 435V305L349 280Z"
+        fill="url(#pack)"/>
+  <rect x="348" y="280" width="107" height="25" rx="8" fill="#6F63BF"/>
+  <path d="M349 305H454" stroke="#D9D5FA" stroke-width="5" opacity=".8"/>
+
+  <!-- Pouch label -->
+  <rect x="354" y="333" width="95" height="91" rx="15" fill="#F7F6FF" opacity=".95"/>
+  <path d="M402 350C392 363 392 374 402 383C412 374 412 363 402 350Z"
+        fill="#8175D1"/>
+  <path d="M402 367C386 360 376 366 374 379C386 380 396 376 402 367Z"
+        fill="#8175D1"/>
+  <path d="M402 367C418 360 428 366 430 379C418 380 408 376 402 367Z"
+        fill="#8175D1"/>
+  <rect x="375" y="395" width="54" height="7" rx="3.5" fill="#AAA1E8"/>
+
+  <!-- Highlights -->
+  <path d="M198 238V394" stroke="#EEEcff" stroke-width="9" stroke-linecap="round" opacity=".55"/>
+  <path d="M145 350V430" stroke="#F5F3FF" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+  <path d="M349 319V427" stroke="#EEEcff" stroke-width="7" stroke-linecap="round" opacity=".45"/>
+
+  <!-- Decorative accents -->
+  <circle cx="438" cy="185" r="9" fill="#796DC8"/>
+  <circle cx="462" cy="208" r="5" fill="#A39AE1"/>
+  <path d="M145 207L158 194M151 221L169 218"
+        stroke="#796DC8" stroke-width="7" stroke-linecap="round"/>
+  <path d="M108 430C121 444 139 455 158 462"
+        fill="none" stroke="#B7AFE9" stroke-width="6" stroke-linecap="round"/>
+</svg>

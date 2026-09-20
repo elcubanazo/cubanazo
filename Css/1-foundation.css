@@ -1,0 +1,88 @@
+/* ========== VARIABLES Y RESET GLOBAL ========== */
+
+/* Paleta de El Cubanazo: colores de la bandera cubana
+    (rojo, blanco y azul) con una base neutra. */
+:root {
+    --color-principal: #B3122A;
+    --color-principal-pastel: #F7C8CF;
+    --color-accent-primary: #1D4E9B;
+
+    /* Tonos Neutros (casi sin cambios: ya funcionaban bien para texto) */
+    --negro: #0F1111;
+    --negro-claro: #3A3A3A;
+    --gris-oscuro: #565959;
+    --gris-medio: #8A8F94;
+    --gris-claro: #EAEDED;
+    --blanco: #FFFFFF;
+
+    /* Rojos: precio/ofertas/más vendido, tono "bandera" en vez del rosa pastel */
+    --rojo-oferta: #CC0C39;
+    --oferta: #CC0C39;
+    --rojo-oscuro: #8C0C28;
+    --rojo-mas-vendido: #B3122A;
+    --verde-oscuro: #2E8B57;
+
+    /* Azules: acento secundario ("algo de azul") para links, íconos, badges */
+    --azul-destacado: #1D4E9B;
+    --azul-claro: #DCE7F7;
+    --azul-medio: #2C5EA8;
+    --azul-oscuro: #14315C;
+
+    --morado-pastel: #D4A8E8;
+    --melocoton-pastel: #FFDAB4;
+    --menta-pastel: #B8E6D5;
+
+    --precio: #B12704;
+    --boton-carrito: #FFD814;
+    --boton-carrito-borde: #FCD200;
+
+    --botonA: #FFCE12;
+    --searchA: #2C5EA8;
+
+    /* Header claro para mantener el contraste con el logo rojo y azul */
+    --header-bg: #FFFFFF;
+    --header-bg-2: #F3F5F7;
+
+    --delivery--color: #22c55e;
+    --delivery-background-color: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+
+    /* Efectos y Transiciones */
+    --sombra: 0 2px 10px rgba(0, 0, 0, 0.06);
+    --sombra-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
+    --sombra-suave: 0 1px 4px rgba(0, 0, 0, 0.04);
+    --transicion: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transicion-lenta: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --borde-radius: 8px;
+}
+
+/* Reset mejorado */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background: var(--gris-claro);
+    color: var(--negro);
+    line-height: 1.4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body.cart-open,
+body.sidebar-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}

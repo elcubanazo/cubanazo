@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Product placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5FAF2"/>
+      <stop offset="100%" stop-color="#E7F2E5"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D9EAD2"/>
+      <stop offset="100%" stop-color="#AFC9A8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Soft background -->
+  <rect width="600" height="600" rx="54" fill="url(#bg)"/>
+
+  <!-- Organic decorative shape -->
+  <path d="M105 385C78 285 126 177 229 142C326 109 431 143 475 227C517 308 478 414 382 452C274 495 134 482 105 385Z"
+        fill="#DDEBD8"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="300" cy="463" rx="145" ry="25" fill="#C8DCC3" opacity=".65"/>
+
+  <!-- Generic product container -->
+  <path d="M239 211H361L379 257V421C379 439 365 453 347 453H253C235 453 221 439 221 421V257L239 211Z"
+        fill="url(#body)"/>
+
+  <!-- Neck / cap -->
+  <rect x="255" y="178" width="90" height="43" rx="12" fill="#91AF89"/>
+  <rect x="266" y="158" width="68" height="30" rx="9" fill="#7F9F78"/>
+
+  <!-- Label area -->
+  <rect x="241" y="289" width="118" height="91" rx="16" fill="#F5F8F1" opacity=".92"/>
+  <circle cx="300" cy="325" r="17" fill="#A8C59F"/>
+  <path d="M286 348C293 338 307 338 314 348" fill="none" stroke="#88A97F" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Small highlights -->
+  <path d="M246 271V403" stroke="#EFF6EC" stroke-width="9" stroke-linecap="round" opacity=".7"/>
+
+  <!-- Decorative accents -->
+  <circle cx="432" cy="188" r="8" fill="#89A982"/>
+  <circle cx="456" cy="211" r="5" fill="#A6C39E"/>
+  <path d="M145 207L158 194M151 221L169 218" stroke="#89A982" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Minimal corner detail -->
+  <path d="M108 430C121 444 139 455 158 462" fill="none" stroke="#B8CFB1" stroke-width="6" stroke-linecap="round"/>
+</svg>
