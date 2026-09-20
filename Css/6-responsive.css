@@ -123,7 +123,7 @@
     
     .header-top {
         order: 1;
-        padding: 1rem;
+        padding: 0.45rem 0.65rem 0.55rem;
         position: relative;
         display: grid;
         grid-template-columns: 42px minmax(0, 1fr) 42px;
@@ -131,7 +131,8 @@
             "menu logo actions"
             "search search search"
             "location location location";
-        gap: 0.3rem 0;
+        gap: 0.15rem 0;
+        min-width: 0;
     }
 
     .price-section {
@@ -149,11 +150,11 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 0.35rem 0.5rem;
+        padding: 0.25rem 0.35rem;
         border: none;
         border-top: 1px solid var(--gris-claro);
         width: 100%;
-        min-height: 38px;
+        min-height: 32px;
         height: auto;
         margin-left: 0;
         order: unset;
@@ -195,8 +196,8 @@
     }
 
     .logo-image {
-        height: 2.75rem;
-        max-width: 170px;
+        height: 2.35rem;
+        max-width: 150px;
     }
 
     .product-card {
@@ -219,6 +220,21 @@
     .search-container {
         grid-area: search;
         order: unset;
+        padding: 0;
+        width: 100%;
+        min-width: 0;
+    }
+
+    #search-input {
+        min-width: 0;
+        width: auto;
+        flex: 1 1 auto;
+        padding: 0.62rem 0.85rem;
+        font-size: 0.95rem;
+    }
+
+    .search-btn {
+        flex: 0 0 58px;
         padding: 0;
     }
     
