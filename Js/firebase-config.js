@@ -14,7 +14,7 @@ const API_BASE = getBackendHost();
 const UBICACION_STORAGE_KEY = 'cubanazo_ubicacion';
 const UBICACIONES_DISPONIBLES = [
   { id: 'ubicacionA', nombre: 'Matanzas', whatsapp: '53123456' },
-  { id: 'ubicacionB', nombre: 'Artemisa', whatsapp: '53654321' }
+  { id: 'ubicacionB', nombre: 'Güines Mayabeque', whatsapp: '53654321' }
 ];
 
 function getSelectedUbicacion() {
@@ -39,14 +39,17 @@ function inyectarEstiloUbicacionUnaVez() {
   const style = document.createElement('style');
   style.id = 'ubicacion-selector-style';
   style.textContent = `
-    .ubicacion-selector-overlay{position:fixed;inset:0;background:rgba(8,9,11,0.92);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;}
-    .ubicacion-selector-modal{background:#131519;border:1px solid #23262c;border-radius:14px;padding:32px 28px;max-width:380px;width:100%;text-align:center;font-family:Arial,sans-serif;}
-    .ubicacion-selector-title{color:#eef0f2;font-size:20px;margin:0 0 8px;}
-    .ubicacion-selector-subtitle{color:#9aa1ab;font-size:13px;margin:0 0 20px;}
+    .ubicacion-selector-overlay{position:fixed;inset:0;background:rgba(15,17,17,0.62);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;touch-action:none;}
+    .ubicacion-selector-modal{background:var(--blanco,#fff);border:1px solid var(--gris-claro,#eaeDED);border-radius:var(--borde-radius,8px);box-shadow:var(--sombra-hover,0 8px 20px rgba(0,0,0,.1));padding:32px 28px;max-width:380px;width:100%;text-align:center;font-family:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+    .ubicacion-selector-title{color:var(--negro,#0f1111);font-size:20px;line-height:1.25;margin:0 0 8px;font-weight:700;}
+    .ubicacion-selector-subtitle{color:var(--gris-oscuro,#565959);font-size:13px;line-height:1.4;margin:0 0 20px;}
     .ubicacion-selector-options{display:flex;flex-direction:column;gap:10px;}
-    .ubicacion-selector-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border:1px solid #23262c;background:#0e1013;color:#eef0f2;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;}
-    .ubicacion-selector-btn:hover{background-color:#1b1e24;border-color:#7c6cf6;}
-    .ubicacion-selector-btn.actual{border-color:#7c6cf6;background-color:#1b1e24;}
+    .ubicacion-selector-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;border:1px solid var(--gris-claro,#eaeDED);background:var(--blanco,#fff);color:var(--negro,#0f1111);border-radius:var(--borde-radius,8px);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:var(--transicion,all .25s ease);}
+    .ubicacion-selector-btn i{color:var(--color-principal,#b3122a);}
+    .ubicacion-selector-btn:hover{background:var(--azul-claro,#dce7f7);border-color:var(--color-accent-primary,#1d4e9b);color:var(--azul-oscuro,#14315c);}
+    .ubicacion-selector-btn.actual{background:var(--color-accent-primary,#1d4e9b);border-color:var(--color-accent-primary,#1d4e9b);color:var(--blanco,#fff);}
+    .ubicacion-selector-btn.actual i{color:var(--blanco,#fff);}
+    body.ubicacion-selector-open{overflow:hidden;}
   `;
   document.head.appendChild(style);
 }
@@ -55,6 +58,18 @@ function actualizarUbicacionEnHeader(ubicacion) {
   inyectarEstiloUbicacionUnaVez();
   const locationCity = document.getElementById('location-city');
   if (locationCity) locationCity.textContent = nombreUbicacion(ubicacion);
+  actualizarTelefonoEnFooter(ubicacion);
+}
+
+function actualizarTelefonoEnFooter(ubicacion) {
+  const footerPhone = document.getElementById('footer-phone');
+  const seleccionada = UBICACIONES_DISPONIBLES.find(item => item.id === ubicacion);
+  if (!footerPhone || !seleccionada?.whatsapp) return;
+
+  const telefono = String(seleccionada.whatsapp);
+  footerPhone.textContent = telefono.startsWith('53')
+    ? `+53 ${telefono.slice(2)}`
+    : `+53 ${telefono}`;
 }
 
 function recargarDesdeInicioConNuevaUbicacion() {
@@ -81,6 +96,7 @@ function abrirSelectorUbicacion(esCambioManual) {
     const overlay = document.createElement('div');
     overlay.id = 'ubicacion-selector-overlay';
     overlay.className = 'ubicacion-selector-overlay';
+    document.body.classList.add('ubicacion-selector-open');
     overlay.innerHTML = `
       <div class="ubicacion-selector-modal">
         <h2 class="ubicacion-selector-title">¿Desde qué ubicación quieres comprar?</h2>
@@ -97,6 +113,7 @@ function abrirSelectorUbicacion(esCambioManual) {
         const seleccion = btn.getAttribute('data-ubicacion');
         try { localStorage.setItem(UBICACION_STORAGE_KEY, seleccion); } catch (e) {}
         overlay.remove();
+        document.body.classList.remove('ubicacion-selector-open');
         actualizarUbicacionEnHeader(seleccion);
         if (esCambioManual) {
           recargarDesdeInicioConNuevaUbicacion();

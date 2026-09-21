@@ -10,7 +10,7 @@
       "layout": "grid",
       "gradiente": "linear-gradient(135deg, #EAF9EE 0%, #D9F1DE 52%, #F9F4D8 100%)",
       "colorTexto": "#1F4D3B",
-      "colorAcento": "#2C7A52",
+      "colorAcento": "#1B5E3A",
       "items": 4,
       "categoria": "Verduras",
       "enlaceTexto": "Ver verduras"
