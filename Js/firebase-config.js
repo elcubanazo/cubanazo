@@ -186,7 +186,13 @@ function getPackImageUrl(filename, preset = null) {
 // -----------------------------
 async function fetchBackendJson(endpoint, options = {}) {
   let finalEndpoint = endpoint;
-  if (endpoint === '/api/bootstrap' || endpoint === '/api/products' || endpoint === '/api/packs') {
+  if (
+    endpoint === '/api/bootstrap' ||
+    endpoint === '/api/products' ||
+    endpoint === '/api/packs' ||
+    endpoint === '/api/notification-banner' ||
+    endpoint === '/api/mensajes'
+  ) {
     const ubicacion = await ensureUbicacionSeleccionada();
     finalEndpoint = appendUbicacionParam(endpoint, ubicacion);
   }
