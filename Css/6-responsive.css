@@ -1183,11 +1183,14 @@
 
 @media (max-width: 480px) {
     .payment-section {
-        padding: 5px;
+        padding: 6px 6px 0;
+        align-items: flex-start;
     }
 
     .payment-container {
-        max-height: calc(100dvh - 68px - env(safe-area-inset-bottom, 0px));
+        width: 100%;
+        max-height: calc(100dvh - 10px);
+        min-height: 0;
     }
 
     .payment-header {
@@ -1247,12 +1250,19 @@
 
 @media (max-width: 768px) {
     /* El checkout ocupa la pantalla completa mientras la navegación inferior se oculta. */
+    .payment-section {
+        align-items: flex-start;
+        justify-content: center;
+        padding: 0.35rem 0.4rem 0;
+    }
+
     .payment-section.active ~ .bottom-nav {
         display: none;
     }
 
     .payment-section.active .payment-container {
         max-height: calc(100dvh - 10px);
+        width: 100%;
     }
 
     .payment-header {
