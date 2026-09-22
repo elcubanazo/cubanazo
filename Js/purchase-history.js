@@ -1,12 +1,32 @@
 class PurchaseHistoryManager {
   constructor() {
-    this.storageKey = 'cubanazo_purchase_history';
+    this.storageKeyPrefix = 'cubanazo_purchase_history';
     this.maxOrders = 10;
   }
 
-  getHistory() {
+  getLocationId(location = null) {
+    const selectedLocation = location || (typeof getSelectedUbicacion === 'function'
+      ? getSelectedUbicacion()
+      : null);
+
+    if (typeof isUbicacionValida === 'function' && isUbicacionValida(selectedLocation)) {
+      return selectedLocation;
+    }
+
+    return null;
+  }
+
+  getStorageKey(location = null) {
+    const locationId = this.getLocationId(location);
+    return locationId ? `${this.storageKeyPrefix}_${locationId}` : null;
+  }
+
+  getHistory(location = null) {
+    const storageKey = this.getStorageKey(location);
+    if (!storageKey) return [];
+
     try {
-      const raw = localStorage.getItem(this.storageKey);
+      const raw = localStorage.getItem(storageKey);
       const parsed = raw ? JSON.parse(raw) : [];
       return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
@@ -15,9 +35,12 @@ class PurchaseHistoryManager {
     }
   }
 
-  saveHistory(history) {
+  saveHistory(history, location = null) {
+    const storageKey = this.getStorageKey(location);
+    if (!storageKey) return;
+
     try {
-      localStorage.setItem(this.storageKey, JSON.stringify(history));
+      localStorage.setItem(storageKey, JSON.stringify(history));
     } catch (e) {
       console.error('Error al guardar historial de compras:', e);
     }
@@ -59,7 +82,14 @@ class PurchaseHistoryManager {
     const items = this.buildItemsFromCart(cartSnapshot);
     if (items.length === 0) return;
 
+    const location = this.getLocationId(orderPayload?.ubicacion);
+    if (!location) {
+      console.warn('Pedido no guardado en historial: ubicación no válida.');
+      return;
+    }
+
     const order = {
+      ubicacion: location,
       orderNumber: orderPayload?.orderNumber || orderPayload?.pedidoId || `LOCAL-${Date.now()}`,
       date: orderPayload?.fecha_pedido || new Date().toISOString(),
       status: 'confirmado',
@@ -69,17 +99,20 @@ class PurchaseHistoryManager {
       items
     };
 
-    const history = this.getHistory();
+    const history = this.getHistory(location);
     history.unshift(order);
     if (history.length > this.maxOrders) {
       history.length = this.maxOrders;
     }
-    this.saveHistory(history);
+    this.saveHistory(history, location);
   }
 
   clearHistory() {
+    const storageKey = this.getStorageKey();
+    if (!storageKey) return;
+
     try {
-      localStorage.removeItem(this.storageKey);
+      localStorage.removeItem(storageKey);
     } catch (e) {
       console.error('Error al eliminar historial de compras:', e);
     }

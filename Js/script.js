@@ -4368,7 +4368,7 @@ function openWhatsApp() {
   const ubicacion = typeof UBICACIONES_DISPONIBLES !== "undefined"
     ? UBICACIONES_DISPONIBLES.find((item) => item.id === selectedUbicacion)
     : null;
-  const phoneNumber = ubicacion?.whatsapp || "5355884661";
+  const phoneNumber = ubicacion?.whatsapp || "5354057298"; // Número por defecto si no se encuentra la ubicación
   const message = encodeURIComponent(
     "Estoy interesado en los productos que vi en su tienda. ¿Podrían ayudarme?"
   );

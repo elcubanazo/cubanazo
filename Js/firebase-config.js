@@ -13,8 +13,8 @@ const API_BASE = getBackendHost();
 
 const UBICACION_STORAGE_KEY = 'cubanazo_ubicacion';
 const UBICACIONES_DISPONIBLES = [
-  { id: 'ubicacionA', nombre: 'Matanzas', whatsapp: '53123456' },
-  { id: 'ubicacionB', nombre: 'Güines Mayabeque', whatsapp: '53654321' }
+  { id: 'ubicacionA', nombre: 'Matanzas', whatsapp: '5354622105' },
+  { id: 'ubicacionB', nombre: 'Güines Mayabeque', whatsapp: '5358762635' }
 ];
 
 function getSelectedUbicacion() {
@@ -59,17 +59,35 @@ function actualizarUbicacionEnHeader(ubicacion) {
   const locationCity = document.getElementById('location-city');
   if (locationCity) locationCity.textContent = nombreUbicacion(ubicacion);
   actualizarTelefonoEnFooter(ubicacion);
+  actualizarTelefonoConfirmacion(ubicacion);
+}
+
+function obtenerTelefonoUbicacion(ubicacion) {
+  const seleccionada = UBICACIONES_DISPONIBLES.find(item => item.id === ubicacion);
+  return seleccionada?.whatsapp ? String(seleccionada.whatsapp) : null;
+}
+
+function formatearTelefonoUbicacion(telefono) {
+  if (!telefono) return '';
+  return telefono.startsWith('53')
+    ? `+53 ${telefono.slice(2)}`
+    : `+53 ${telefono}`;
 }
 
 function actualizarTelefonoEnFooter(ubicacion) {
   const footerPhone = document.getElementById('footer-phone');
-  const seleccionada = UBICACIONES_DISPONIBLES.find(item => item.id === ubicacion);
-  if (!footerPhone || !seleccionada?.whatsapp) return;
+  const telefono = obtenerTelefonoUbicacion(ubicacion);
+  if (!footerPhone || !telefono) return;
 
-  const telefono = String(seleccionada.whatsapp);
-  footerPhone.textContent = telefono.startsWith('53')
-    ? `+53 ${telefono.slice(2)}`
-    : `+53 ${telefono}`;
+  footerPhone.textContent = formatearTelefonoUbicacion(telefono);
+}
+
+function actualizarTelefonoConfirmacion(ubicacion) {
+  const confirmationPhone = document.getElementById('confirmation-phone');
+  const telefono = obtenerTelefonoUbicacion(ubicacion);
+  if (confirmationPhone && telefono) {
+    confirmationPhone.textContent = formatearTelefonoUbicacion(telefono);
+  }
 }
 
 function recargarDesdeInicioConNuevaUbicacion() {
