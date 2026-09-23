@@ -248,9 +248,9 @@ async function sendPageViewStatistics() {
         
         const statsData = {
             ubicacion: typeof getSelectedUbicacion === 'function' ? getSelectedUbicacion() : null,
-            ip: userData.ip,
-            pais: userData.country,
-            origen: window.location.href,
+            ip: userData.ip || 'Desconocido',
+            pais: normalizeUserCountry(userData),
+            origen: window.location.href || 'Directo',
             afiliado: getCurrentAffiliate()?.nombre || "Ninguno",
             tiempo_carga_pagina_ms: pageLoadTime,
             navegador: getBrowserInfo(),
@@ -267,6 +267,11 @@ async function sendPageViewStatistics() {
 // Función para obtener datos del usuario. Se cachea la promesa para no
 // disparar varias peticiones a ipapi.co en la misma visita (eso agotaba
 // la cuota gratuita y hacía que a veces llegara "Desconocido").
+function normalizeUserCountry(userData) {
+    const value = userData?.country || userData?.country_name || userData?.countryCode || 'Desconocido';
+    return String(value || 'Desconocido').trim() || 'Desconocido';
+}
+
 async function gatherUserData() {
     if (cachedUserDataPromise) return cachedUserDataPromise;
 
@@ -274,11 +279,18 @@ async function gatherUserData() {
         try {
             const response = await fetch('https://ipapi.co/json/');
             if (!response.ok) throw new Error('Error obteniendo datos de IP');
-            return await response.json();
+            const userData = await response.json();
+            return {
+                ...userData,
+                country: normalizeUserCountry(userData),
+                pais: normalizeUserCountry(userData)
+            };
         } catch (error) {
             console.error('Error obteniendo datos del usuario:', error);
             return {
                 ip: 'Desconocido',
+                country: 'Desconocido',
+                pais: 'Desconocido',
                 city: 'Desconocido'
             };
         }
@@ -606,9 +618,9 @@ async function processPayment(e) {
         // Prepara el payload completo que se enviará al backend y luego a Apps Script
         const orderPayload = {
             ubicacion: typeof getSelectedUbicacion === 'function' ? getSelectedUbicacion() : null,
-            ip: userData.ip,
-            pais: userData.country,
-            origen: window.location.href,
+            ip: userData.ip || 'Desconocido',
+            pais: normalizeUserCountry(userData),
+            origen: window.location.href || 'Directo',
             afiliado: affiliateInfo?.nombre || "Ninguno", // Nombre del afiliado (string)
             nombre_comprador: formData['full-name'],
             telefono_comprador: buildFullPhoneNumber(formData.phone, 'phone-country-code') || "N/A",
