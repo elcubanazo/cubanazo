@@ -931,7 +931,7 @@ function renderCategories() {
   const categoryItems = categories
     .map(
       (category) => `
-        <li onclick="filterByCategory('${category}')">
+        <li data-category="${escapeAttr(category)}" onclick="filterByCategory('${category}')">
             <i class="fas fa-${getCategoryIcon(category)}"></i>
             ${category}
         </li>
@@ -941,6 +941,22 @@ function renderCategories() {
 
   if (sidebarCategories) sidebarCategories.innerHTML = categoryItems;
   if (desktopCategories) desktopCategories.innerHTML = categoryItems;
+  const hash = safeDecodeURIComponent(window.location.hash.substring(1) || "");
+  setActiveCategoryNavigation(hash.startsWith("category=") ? hash.slice(9) : "Todo");
+}
+
+function setActiveCategoryNavigation(category) {
+  ["categories-list", "sidebar-categories"].forEach((listId) => {
+    const list = document.getElementById(listId);
+    if (!list) return;
+    list.querySelectorAll("[data-category]").forEach((item) => {
+      if (category && item.dataset.category === category) {
+        item.setAttribute("aria-current", "page");
+      } else {
+        item.removeAttribute("aria-current");
+      }
+    });
+  });
 }
 // Función auxiliar para iconos de categorías
 function getCategoryIcon(category) {
@@ -1094,6 +1110,8 @@ function initPriceFilter() {
 
 // Filtrar por categoría
 function filterByCategory(category) {
+  setActiveCategoryNavigation(category);
+
   // Ocultar mensaje de no resultados si está visible
   hideNoResultsMessage();
 
@@ -1208,6 +1226,8 @@ function searchProducts(showSuggestions = true, syncUrl = true) {
   }
 
   const searchTerm = searchInput.value.toLowerCase().trim();
+  if (searchTerm) setActiveCategoryNavigation(null);
+  else setActiveCategoryNavigation("Todo");
 
   if (syncUrl) {
     const searchUrl = getSearchRouteUrl(searchTerm);

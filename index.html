@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="Css/6-responsive.css">
     <link rel="stylesheet" href="Css/7-features.css">
     <link rel="stylesheet" href="Css/8-seasonal-carousel.css">
+    <link rel="stylesheet" href="Css/9-storefront-polish.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <base href="./">
@@ -181,6 +182,15 @@
     <!-- Sección de Productos Más Vendidos -->
     <section class="best-sellers-section">
         <div class="best-sellers-container">
+            <div class="storefront-section-heading">
+                <div>
+                    <p class="storefront-section-kicker">Los favoritos de nuestros clientes</p>
+                    <h2>Más vendidos</h2>
+                </div>
+                <button class="storefront-section-link" type="button" onclick="document.getElementById('products-container').scrollIntoView({ behavior: 'smooth', block: 'start' })">
+                    Ver catálogo <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
             <div class="best-sellers-scroll" id="best-sellers-scroll">
                 <!-- Cards de productos más vendidos se cargarán aquí -->
             </div>
